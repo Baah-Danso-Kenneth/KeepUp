@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import uiReducer from './slices/uiSlice';
 import authReducer from './slices/authSlice';
-
+import onboardingReducer from './slices/onboardingSlice';
 
 export const store = configureStore({
     reducer: {
         auth: authReducer,
         ui: uiReducer,
+        onboarding: onboardingReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

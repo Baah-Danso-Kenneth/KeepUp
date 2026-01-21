@@ -35,7 +35,7 @@ const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 videoRef.current.play().catch(e => console.log("Video play failed:", e));
             } else {
                 videoRef.current.pause();
-                videoRef.current.currentTime = 0; // Optional: Reset video when closed
+                videoRef.current.currentTime = 0; 
             }
         }
     }, [isOpen]);
