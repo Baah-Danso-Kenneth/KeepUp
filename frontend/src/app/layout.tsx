@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-
+import StoreProvider from "@/redux/StoreProvider";
+import FloatingActions from "@/components/common/FloatingActions";
+import ThemeWrapper from "@/components/ThemeWrapper";
+import PageTransition from "@/components/common/PageTransition";
 
 const sfReg = localFont({
   src: "../../public/assets/fonts/SF-Pro-Display-Regular.otf",
@@ -41,7 +44,14 @@ export default function RootLayout({
       <body
         className={`${sfReg.variable} ${sfBold.variable} ${sfBlack.variable} ${ppMontreal.variable} antialiased`}
       >
+        <PageTransition>
+        <StoreProvider>
+          <ThemeWrapper>
             {children}
+            <FloatingActions />
+          </ThemeWrapper>
+        </StoreProvider>
+        </PageTransition>
       </body>
     </html>
   );

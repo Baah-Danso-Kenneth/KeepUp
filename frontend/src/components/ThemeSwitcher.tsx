@@ -2,18 +2,18 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { RootState } from "@/redux/store";
-// import { setTheme } from "@/redux/slices/uiSlice";
+import { RootState } from "@/redux/store";
+import { setTheme } from "@/redux/slices/uiSlice";
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 
 const ThemeSwitcher: React.FC = () => {
-    // const dispatch = useDispatch();
-    // const theme = useSelector((state: RootState) => state.ui.theme);
+    const dispatch = useDispatch();
+    const theme = useSelector((state: RootState) => state.ui.theme);
 
     const toggleTheme = () => {
-        // const newTheme = theme === "light" ? "dark" : "light";
-        // dispatch(setTheme(newTheme));
+        const newTheme = theme === "light" ? "dark" : "light";
+        dispatch(setTheme(newTheme));
     };
 
     return (
@@ -25,8 +25,8 @@ const ThemeSwitcher: React.FC = () => {
             <motion.div
                 initial={false}
                 animate={{
-                    // y: theme === "light" ? -20 : 0,
-                    // opacity: theme === "light" ? 0 : 1,
+                    y: theme === "light" ? -20 : 0,
+                    opacity: theme === "light" ? 0 : 1,
                 }}
                 transition={{ duration: 0.2 }}
                 className="absolute"
@@ -36,8 +36,8 @@ const ThemeSwitcher: React.FC = () => {
             <motion.div
                 initial={false}
                 animate={{
-                    // y: theme === "light" ? 0 : 20,
-                    // opacity: theme === "light" ? 1 : 0,
+                    y: theme === "light" ? 0 : 20,
+                    opacity: theme === "light" ? 1 : 0,
                 }}
                 transition={{ duration: 0.2 }}
                 className="absolute"
