@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from api.routes import (
-   auth
+   auth, onboarding
 )
 from core.config import settings 
 from core.database import init_db, close_db
-from fastapi import WebSocket, WebSocketDisconnect
+
 
 import models  
 
@@ -25,10 +25,8 @@ async def lifespan(app: FastAPI):
 
     yield
 
-    # Shutdown
+
     print("Shutting down...")
-    intervention_monitor.stop()
-    print(" Background jobs stopped")
     await close_db()
     print(" Database connections closed")
 
@@ -56,6 +54,7 @@ app.add_middleware(
 
 
 app.include_router(auth.router, prefix="/api")
+app.include_router(onboarding.router, prefix="/api")
 
 
 
