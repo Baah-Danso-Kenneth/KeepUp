@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-// import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import SplitType from "split-type";
@@ -28,7 +28,7 @@ const ReactNav: React.FC<ReactNavProps> = ({ containerRef }) => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  // const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
   const lenisRef = useRef<Lenis | null>(null);
   const splitTextByContainerRef = useRef<SplitType[][]>([]);
 
@@ -231,7 +231,7 @@ const ReactNav: React.FC<ReactNavProps> = ({ containerRef }) => {
         <div className="flex items-center gap-4">
           <ThemeSwitcher />
 
-          {/* {!isLoggedIn && (
+          {!isLoggedIn && (
             <div className="flex items-center gap-4">
               <Link
                 href="/login"
@@ -243,9 +243,9 @@ const ReactNav: React.FC<ReactNavProps> = ({ containerRef }) => {
                 Join
               </PrimaryButton>
             </div>
-          )} */}
+          )}
 
-          {/* {isLoggedIn && (
+          {isLoggedIn && (
             <div className="flex items-center gap-4 cursor-pointer">
               <div className="flex items-center gap-4" onClick={toggleMenu}>
                 <div className="overflow-hidden">
@@ -261,7 +261,7 @@ const ReactNav: React.FC<ReactNavProps> = ({ containerRef }) => {
                 />
               </div>
             </div>
-          )} */}
+          )}
         </div>
       </div>
 

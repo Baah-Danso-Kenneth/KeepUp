@@ -3,8 +3,8 @@
 import React from "react";
 import { navLinks, secondaryLinks } from "@/lib/data";
 import { useRouter } from "next/navigation";
-// import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-// import { logout } from "@/redux/slices/authSlice";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/slices/authSlice";
 import NotificationBell from "./NotificationBell";
 import { DoorOpen } from "lucide-react";
 
@@ -25,8 +25,8 @@ const MenuOverlay: React.FC<MenuOverlayProps> = ({
 }) => {
 
     const router = useRouter();
-    // const dispatch = useAppDispatch();
-    // const { isLoggedIn } = useAppSelector((state) => state.auth);
+    const dispatch = useAppDispatch();
+    const { isLoggedIn } = useAppSelector((state) => state.auth);
     const videoRef = React.useRef<HTMLVideoElement>(null);
 
     React.useEffect(() => {
@@ -41,7 +41,7 @@ const MenuOverlay: React.FC<MenuOverlayProps> = ({
     }, [isOpen]);
 
     const handleLogout = async () => {
-        // await dispatch(logout());
+        await dispatch(logout());
         router.push("/");
     };
 

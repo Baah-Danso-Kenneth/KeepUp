@@ -2,7 +2,7 @@
 
 import { Provider } from 'react-redux';
 import { store } from './store';
-
+import AuthInitializer from './AuthInitializer';
 
 export default function StoreProvider({
     children,
@@ -11,9 +11,9 @@ export default function StoreProvider({
 }) {
     return (
         <Provider store={store}>
-           
+            <AuthInitializer>
                 {children}
-          
+            </AuthInitializer>
         </Provider>
     );
 }
