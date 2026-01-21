@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image'
-import { Heart } from 'lucide-react';
+import { Heart, Instagram, Twitter, Youtube } from 'lucide-react';
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -33,9 +33,9 @@ export default function Footer() {
                                 </div>
                             </div>
                             <h2 className="text-2xl md:text-3xl font-medium leading-tight text-[var(--fg)] mb-8 pl-4">
-                                Resolution Resilience.
+                                Your Partner in
                                 <br />
-                                <span className="text-[var(--fg)]/50">Everywhere you grow.</span>
+                                <span className="text-[var(--fg)]/50">Transformation.</span>
                             </h2>
                         </div>
 
@@ -49,66 +49,84 @@ export default function Footer() {
 
                     {/* Links Columns */}
                     <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 border-t border-b border-[var(--fg)]/10 border-r border-[var(--fg)]/10">
-                        {/* Platform */}
+                        {/* Features */}
                         <div className="flex flex-col space-y-6 border-l border-[var(--fg)]/10 pl-8 py-8 md:py-2">
-                            <h3 className="text-sm font-semibold text-[var(--fg)] tracking-wide">Platform</h3>
+                            <h3 className="text-sm font-semibold text-[var(--fg)] tracking-wide">Features</h3>
                             <div className="flex flex-col space-y-4">
-                                <Link href="/dashboard" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    Dashboard
+                                <Link href="/features/custom-workout-plans" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    Workout Plans
                                 </Link>
-                                <Link href="/performance" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    Performance
+                                <Link href="/features/nutrition-guidance" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    Nutrition
                                 </Link>
-                                <Link href="/growth" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    Growth
+                                <Link href="/features/health-monitoring" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    Health Tracking
                                 </Link>
-                                <Link href="/intelligence" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    Intelligence
+                                <Link href="/features/community-support" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    Community
                                 </Link>
                             </div>
                         </div>
 
-                        {/* Company */}
+                        {/* Resources */}
                         <div className="flex flex-col space-y-6 border-l border-[var(--fg)]/10 pl-8 py-8 md:py-2">
-                            <h3 className="text-sm font-semibold text-[var(--fg)] tracking-wide">Company</h3>
+                            <h3 className="text-sm font-semibold text-[var(--fg)] tracking-wide">Resources</h3>
                             <div className="flex flex-col space-y-4">
-                                <Link href="/about" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    About Us
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    Getting Started
                                 </Link>
-                                <Link href="/careers" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    Careers
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    Success Stories
                                 </Link>
-                                <Link href="/contact" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    Contact
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    Blog
+                                </Link>
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    FAQ
                                 </Link>
                             </div>
                         </div>
 
-                        {/* Legal */}
+                        {/* Support */}
                         <div className="flex flex-col space-y-6 border-l border-[var(--fg)]/10 pl-8 py-8 md:py-2">
-                            <h3 className="text-sm font-semibold text-[var(--fg)] tracking-wide">Legal</h3>
+                            <h3 className="text-sm font-semibold text-[var(--fg)] tracking-wide">Support</h3>
                             <div className="flex flex-col space-y-4">
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    Help Center
+                                </Link>
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                    Contact Us
+                                </Link>
                                 <Link href="/privacy" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    Privacy Policy
+                                    Privacy
                                 </Link>
                                 <Link href="/terms" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    Terms of Service
+                                    Terms
                                 </Link>
                             </div>
                         </div>
 
-                        {/* Connect */}
+                        {/* Social */}
                         <div className="flex flex-col space-y-6 border-l border-[var(--fg)]/10 pl-8 py-8 md:py-2">
-                            <h3 className="text-sm font-semibold text-[var(--fg)] tracking-wide">Connect</h3>
+                            <h3 className="text-sm font-semibold text-[var(--fg)] tracking-wide">Social</h3>
                             <div className="flex flex-col space-y-4">
-                                <Link href="https://twitter.com" target="_blank" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    X (Twitter)
-                                </Link>
-                                <Link href="https://linkedin.com" target="_blank" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
-                                    LinkedIn
-                                </Link>
-                                <Link href="https://instagram.com" target="_blank" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors">
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors flex items-center gap-2">
+                                    <Instagram className="w-4 h-4" />
                                     Instagram
+                                </Link>
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors flex items-center gap-2">
+                                    <Twitter className="w-4 h-4" />
+                                    Twitter
+                                </Link>
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors flex items-center gap-2">
+                                    <Youtube className="w-4 h-4" />
+                                    YouTube
+                                </Link>
+                                <Link href="/" className="text-sm text-[var(--fg)]/60 hover:text-[var(--fg)] transition-colors flex items-center gap-2">
+                                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                                    </svg>
+                                    TikTok
                                 </Link>
                             </div>
                         </div>

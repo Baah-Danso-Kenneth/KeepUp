@@ -1,5 +1,6 @@
 "use client";
 import React from 'react'
+import Link from 'next/link';
 import { stickyCardsData } from '@/lib/data';
 
 const StickyCard = () => {
@@ -38,9 +39,12 @@ const StickyCard = () => {
                                         <p className="grid-card-description">{cardData.description}</p>
                                     </div>
 
-                                    <button className="grid-card-button">
+                                    <Link
+                                        href={`/features/${cardData.slug}`}
+                                        className="grid-card-button inline-block text-center"
+                                    >
                                         Explore Feature
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

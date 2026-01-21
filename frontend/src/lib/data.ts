@@ -1,27 +1,31 @@
 export const stickyCardsData = [
     {
         index: "01",
-        title: "Adaptive Intelligence",
+        slug: "custom-workout-plans",
+        title: "Custom Workout Plans",
         image: "/assets/images/bg-cron.svg",
-        description: "Experience a system that evolves with you. Our adaptive intelligence monitors your patterns and provides real-time interventions to keep you on the path to your optimal self."
+        description: "Get personalized workout schedules designed specifically for your fitness level and goals. Our adaptive system creates routines that evolve with your progress, keeping you challenged and motivated."
     },
     {
         index: "02",
-        title: "Biometric Harmony",
+        slug: "nutrition-guidance",
+        title: "Nutrition Guidance",
         image: "/assets/images/bg-phanty.svg",
-        description: "Sync your physical and digital worlds. We translate complex biometric data into actionable insights, creating a harmonious balance between your health and your goals."
+        description: "Receive tailored nutrition advice that complements your fitness journey. We help you make informed dietary choices that fuel your body and support your wellbeing goals."
     },
     {
         index: "03",
-        title: "Precision Growth",
+        slug: "health-monitoring",
+        title: "Health Monitoring",
         image: "/assets/images/bg-elite.svg",
-        description: "Every step measured, every milestone celebrated. Our precision tracking ensures that your growth is not just felt, but quantified with absolute accuracy."
+        description: "Track your sleep patterns, stress levels, and overall wellness metrics. Our comprehensive monitoring system gives you insights into your health, helping you make better decisions every day."
     },
     {
         index: "04",
-        title: "Resilient Mindset",
+        slug: "community-support",
+        title: "Community Support",
         image: "/assets/images/bg-prat.svg",
-        description: "Build the mental fortitude to overcome any obstacle. KEEP UP provides the tools and community support to foster a mindset that is as resilient as it is ambitious."
+        description: "Join a community of like-minded individuals on their own transformation journeys. Share experiences, celebrate milestones, and stay motivated with support from others who understand your goals."
     }
 ];
 
