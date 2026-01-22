@@ -34,6 +34,39 @@ class User(Base):
     # Occupation (Phase 2)
     occupation: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     occupation_details: Mapped[Optional[dict]] = mapped_column(JSON, nullable=True)
+    
+    # Primary Health Goal (MVP Core Feature)
+    primary_goal: Mapped[Optional[str]] = mapped_column(
+        String(50), 
+        nullable=True,
+        comment="User's primary health focus: fitness|sleep|stress|wellness"
+    )
+    goal_details: Mapped[Optional[dict]] = mapped_column(
+        JSON, 
+        nullable=True,
+        comment="Rich context about user's specific goal"
+    )
+    
+    # Notification Preferences (US 5.1)
+    notification_preferences: Mapped[Optional[dict]] = mapped_column(
+        JSON,
+        nullable=True,
+        default={
+            "morning_briefing": {"enabled": True, "time": "07:00"},
+            "evening_wind_down": {"enabled": True, "time": "21:00"},
+            "workout_reminders": {"enabled": True, "time": "variable"},
+            "milestones": {"enabled": True, "mute": False},
+            "quiet_hours": {"start": "22:00", "end": "06:00"},
+            "channels": {"push": True, "email": False, "sms": False},
+            "paused_until": None  # ISO datetime string
+        },
+        comment="User settings for notification timing, channels, and quiet hours"
+    )
+    goal_set_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), 
+        nullable=True,
+        comment="When user set their primary goal"
+    )
    
     memories = relationship("UserMemory", back_populates="user")
     workout_sessions = relationship("WorkoutSession", back_populates="user", cascade="all, delete-orphan")
