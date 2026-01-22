@@ -56,27 +56,27 @@ Key principles:
 - When agents disagree, don't just pick one - create a synthesis
 
 You MUST respond with EXACTLY this JSON format (no extra text):
-{
-    "final_decision": {
+{{
+    "final_decision": {{
         "interpreted_goal": "specific goal statement",
         "weekly_target": "concrete weekly action",
         "first_milestone": "achievable 4-week goal",
         "reasoning": "detailed explanation of your synthesis"
-    },
-    "debate_summary": {
+    }},
+    "debate_summary": {{
         "goal_agent_position": "summary of what Goal Setting Agent proposed",
         "failure_agent_position": "summary of what Failure Pattern Agent challenged",
         "synthesis_rationale": "explanation of how you balanced both positions"
-    },
+    }},
     "safety_adjustments": ["list of changes made to protect user from past failures"],
     "growth_path": "how user can increase difficulty over time",
     "confidence": 0.90
-}
+}}
 
 CRITICAL: All three keys in debate_summary MUST be present with actual content, not null!"""
         
         # Build a clearer user prompt
-        user_prompt = f"""Here is the agent debate:
+        user_prompt = f"""Here is the agent debate for a user with PRIMARY GOAL: {primary_goal.upper()}
 
 GOAL SETTING AGENT PROPOSAL:
 {json.dumps(debate_history[0], indent=2)}
@@ -87,7 +87,7 @@ FAILURE PATTERN AGENT CHALLENGE:
 Your task:
 1. Summarize what each agent proposed
 2. Identify the key conflict between their positions
-3. Create a synthesis that honors both perspectives
+3. Create a synthesis that honors both perspectives but weights them according to the {primary_goal} goal
 4. Explain your reasoning clearly
 
 Generate the JSON response now."""
@@ -144,8 +144,11 @@ async def process_node(self, state: OnboardingState) -> OnboardingState:
                 }
             ]
             
+            # Extract primary goal
+            primary_goal = state.get("primary_goal", "wellness")
+            
             # Synthesize
-            synthesis = await self.synthesize_debate(debate_history)
+            synthesis = await self.synthesize_debate(debate_history, primary_goal)
             
             # Store final decision
             state["final_plan"] = synthesis.get("final_decision", {})
