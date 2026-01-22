@@ -39,6 +39,12 @@ class UserResponse(BaseModel):
     display_name: str
     bio: Optional[str] = None
     has_completed_onboarding: bool = False
+    
+    # Primary Health Goal
+    primary_goal: Optional[str] = None
+    goal_details: Optional[dict] = None
+    goal_set_at: Optional[datetime] = None
+    
     created_at: datetime
     
     class Config:

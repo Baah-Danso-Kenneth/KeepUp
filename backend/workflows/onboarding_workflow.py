@@ -69,7 +69,7 @@ class OnboardingWorkflow:
             state_type="onboarding"
         )
         state["user_memory"] = memory_data
-        state["memory_updates"] = []  
+        state["memory_updates"] = []  # Initialize for agents to add learnings
         return state
     
     async def _goal_setting_node(
@@ -148,7 +148,12 @@ class OnboardingWorkflow:
             }
         ]
         
-        synthesis = await self.coordinator.synthesize_debate(debate_history)
+        
+        
+        # Extract primary goal from state (passed from API)
+        primary_goal = state.get("primary_goal", "wellness")
+        
+        synthesis = await self.coordinator.synthesize_debate(debate_history, primary_goal)
         
         state["final_plan"] = synthesis.get("final_decision", {})
         

@@ -67,7 +67,7 @@ async def init_db() -> None:
         import models
         
         await conn.run_sync(Base.metadata.create_all)
-        print(" Database tables created successfully")
+        print("✓ Database tables created successfully")
 
 
 async def drop_db() -> None:
@@ -92,7 +92,7 @@ async def close_db() -> None:
     Call this on application shutdown.
     """
     await engine.dispose()
-    print(" Database connections closed")
+    print("✓ Database connections closed")
 
 
 # For testing purposes - create a separate test database session

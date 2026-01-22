@@ -36,7 +36,9 @@ async def start_onboarding(
 
         initial_state = {
             "user_id": str(current_user.id),
-            "resolution_text": request.resolution_text,
+            "primary_goal": request.primary_goal,  # NEW
+            "goal_details": request.goal_details,  # NEW
+            "resolution_text": request.goal_details,  # Use goal_details as resolution_text
             "past_attempts": request.past_attempts,
             "life_constraints": request.life_constraints or [],
             "occupation": request.occupation,
@@ -54,6 +56,16 @@ async def start_onboarding(
         
         # Mark user as having completed onboarding
         current_user.has_completed_onboarding = True
+        
+        # Store primary goal (MVP Core Feature)
+        current_user.primary_goal = request.primary_goal
+        current_user.goal_details = {
+            "details": request.goal_details,
+            "past_attempts": request.past_attempts,
+            "life_constraints": request.life_constraints
+        }
+        from datetime import datetime, timezone
+        current_user.goal_set_at = datetime.now(timezone.utc)
         
         # Save occupation data if provided
         if request.occupation:
