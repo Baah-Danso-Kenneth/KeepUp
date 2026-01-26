@@ -63,7 +63,7 @@ export default function NotFound() {
                         Lost in the Protocol.
                     </h2>
                     <p className="text-[var(--fg)] opacity-60 text-lg md:text-xl max-w-md mx-auto leading-relaxed">
-                        The page you're looking for has drifted off course or never existed in this timeline.
+                        The page you&apos;re looking for has drifted off course or never existed in this timeline.
                     </p>
                 </div>
 

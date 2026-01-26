@@ -30,7 +30,7 @@ export class ApiError extends Error {
  */
 export function handleApiError(response: Response): ApiError {
     let errorMessage = 'An error occurred';
-    let errorDetail = '';
+    const errorDetail = '';
 
     try {
         // This will be handled in the calling code after parsing JSON

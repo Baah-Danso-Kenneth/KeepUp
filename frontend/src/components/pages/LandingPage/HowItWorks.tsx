@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -9,7 +9,7 @@ const howItWorksData = [
     {
         id: "01",
         title: "Create Your Account",
-        description: "Join the KEEP UP ecosystem by creating your personalized profile. This is your first step towards a data-driven health and fitness journey tailored to your unique needs.",
+        description: "Join the OptimalYou ecosystem by creating your personalized profile. This is your first step towards a data-driven health and fitness journey tailored to your unique needs.",
         icon: (
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -106,7 +106,7 @@ const HowItWorks = () => {
                         <span className="text-[var(--fg)]/60">Works.</span>
                     </h2>
                     <p className="text-xl text-[var(--fg)]/50 leading-relaxed font-medium mb-12 max-w-md transition-colors duration-300">
-                        KEEP UP is more than just a tracker. It's an intelligent ecosystem designed to evolve with your ambitions.
+                        OptimalYou is more than just a tracker. It&apos;s an intelligent ecosystem designed to evolve with your ambitions.
                     </p>
                     <button className="group flex items-center gap-4 bg-[var(--fg)] text-[var(--bg)] px-8 py-3 rounded-full font-bold text-lg hover:opacity-90 transition-all duration-300">
                         Start Journey

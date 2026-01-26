@@ -6,7 +6,6 @@ import {
   ChevronDown,
   ChevronUp,
   AlertCircle,
-  Check,
   Target,
   Zap,
   Shield,
@@ -26,22 +25,12 @@ interface QuarterlyPhaseCardProps {
  */
 export default function QuarterlyPhaseCard({
   phase,
-  weeklyPlans,
   isExpanded = false,
   onExpand,
 }: QuarterlyPhaseCardProps) {
   const completionPercentage = Math.round(phase.completion_percentage);
 
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'completed':
-        return 'text-primary';
-      case 'in-progress':
-        return 'text-secondary';
-      default:
-        return 'text-muted-foreground';
-    }
-  };
+
 
   return (
     <div className={`border border-border bg-card/80 backdrop-blur-sm relative group transition-all duration-300 ${isExpanded ? 'ring-1 ring-primary/30' : ''}`}>

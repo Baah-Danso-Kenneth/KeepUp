@@ -16,7 +16,7 @@ interface Notification {
 export default function NotificationBell() {
     const router = useRouter();
     const [showDropdown, setShowDropdown] = useState(false);
-    const [notifications, setNotifications] = useState<Notification[]>([]);
+    const [notifications] = useState<Notification[]>([]);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     // Close dropdown when clicking outside
@@ -36,17 +36,7 @@ export default function NotificationBell() {
         };
     }, [showDropdown]);
 
-    const getNotificationTitle = (type: string): string => {
-        const titles: Record<string, string> = {
-            'milestone_achieved': 'Milestone Achieved!',
-            'partnership_created': 'New Partnership',
-            'new_message': 'New Message',
-            'encouragement_received': 'Encouragement',
-            'streak_reminder': 'Streak Reminder',
-            'group_milestone': 'Group Celebration',
-        };
-        return titles[type] || 'Notification';
-    };
+
 
     const getNotificationIcon = (type: string): string => {
         const icons: Record<string, string> = {

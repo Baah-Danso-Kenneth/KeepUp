@@ -1,8 +1,4 @@
-interface PlanHeaderProps {
-    // No props needed for now, but keeping interface for future extensibility
-}
-
-export default function PlanHeader({ }: PlanHeaderProps) {
+export default function PlanHeader() {
     return (
         <div className="mb-24 plan-header flex flex-col md:flex-row md:items-end justify-between gap-12">
             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]">

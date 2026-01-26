@@ -1,31 +1,27 @@
 export const stickyCardsData = [
     {
         index: "01",
-        slug: "custom-workout-plans",
-        title: "Custom Workout Plans",
+        title: "Adaptive Intelligence",
         image: "/assets/images/bg-cron.svg",
-        description: "Get personalized workout schedules designed specifically for your fitness level and goals. Our adaptive system creates routines that evolve with your progress, keeping you challenged and motivated."
+        description: "Experience a system that evolves with you. Our adaptive intelligence monitors your patterns and provides real-time interventions to keep you on the path to your optimal self."
     },
     {
         index: "02",
-        slug: "nutrition-guidance",
-        title: "Nutrition Guidance",
+        title: "Biometric Harmony",
         image: "/assets/images/bg-phanty.svg",
-        description: "Receive tailored nutrition advice that complements your fitness journey. We help you make informed dietary choices that fuel your body and support your wellbeing goals."
+        description: "Sync your physical and digital worlds. We translate complex biometric data into actionable insights, creating a harmonious balance between your health and your goals."
     },
     {
         index: "03",
-        slug: "health-monitoring",
-        title: "Health Monitoring",
+        title: "Precision Growth",
         image: "/assets/images/bg-elite.svg",
-        description: "Track your sleep patterns, stress levels, and overall wellness metrics. Our comprehensive monitoring system gives you insights into your health, helping you make better decisions every day."
+        description: "Every step measured, every milestone celebrated. Our precision tracking ensures that your growth is not just felt, but quantified with absolute accuracy."
     },
     {
         index: "04",
-        slug: "community-support",
-        title: "Community Support",
+        title: "Resilient Mindset",
         image: "/assets/images/bg-prat.svg",
-        description: "Join a community of like-minded individuals on their own transformation journeys. Share experiences, celebrate milestones, and stay motivated with support from others who understand your goals."
+        description: "Build the mental fortitude to overcome any obstacle. OptimalYou provides the tools and community support to foster a mindset that is as resilient as it is ambitious."
     }
 ];
 

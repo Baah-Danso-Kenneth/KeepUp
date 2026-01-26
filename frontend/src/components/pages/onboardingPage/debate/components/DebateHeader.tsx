@@ -1,8 +1,4 @@
-interface DebateHeaderProps {
-    // No props needed for now, but keeping interface for future extensibility
-}
-
-export default function DebateHeader({ }: DebateHeaderProps) {
+export default function DebateHeader() {
     return (
         <div className="space-y-6">
             <h1 className="text-6xl md:text-7xl font-black tracking-tighter text-[var(--fg)] leading-[0.9]">

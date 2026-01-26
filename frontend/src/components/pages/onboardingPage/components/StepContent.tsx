@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import GoalStep from './GoalStep';
 import PastAttemptsStep from './PastAttemptsStep';
 import ConstraintsStep from './ConstraintsStep';

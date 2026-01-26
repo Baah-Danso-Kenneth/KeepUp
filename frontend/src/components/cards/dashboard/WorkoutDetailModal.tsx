@@ -31,8 +31,7 @@ interface WorkoutDetailModalProps {
 export default function WorkoutDetailModal({
   workout,
   isOpen,
-  onClose,
-  onStatusUpdate,
+  onClose
 }: WorkoutDetailModalProps) {
   if (!isOpen) return null;
 
@@ -172,7 +171,7 @@ export default function WorkoutDetailModal({
                     </h4>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed italic">
-                    "{workout.modification_rationale}"
+                    {workout.modification_rationale}
                   </p>
                 </div>
               )}

@@ -35,7 +35,7 @@ const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 videoRef.current.play().catch(e => console.log("Video play failed:", e));
             } else {
                 videoRef.current.pause();
-                videoRef.current.currentTime = 0; 
+                videoRef.current.currentTime = 0; // Optional: Reset video when closed
             }
         }
     }, [isOpen]);
@@ -98,7 +98,7 @@ const MenuOverlay: React.FC<MenuOverlayProps> = ({
                                 </div>
                             ))}
 
-                            {/* {isLoggedIn && (
+                            {isLoggedIn && (
                                 <>
                                     <div className="overflow-hidden mt-4">
                                         <div className="flex items-center gap-3 text-[var(--fg)] text-xl lg:text-2xl font-medium hover:text-[var(--fg)]/60 transition-colors cursor-pointer">
@@ -117,7 +117,7 @@ const MenuOverlay: React.FC<MenuOverlayProps> = ({
                                         </button>
                                     </div>
                                 </>
-                            )} */}
+                            )}
                         </div>
                     </div>
                 </div>

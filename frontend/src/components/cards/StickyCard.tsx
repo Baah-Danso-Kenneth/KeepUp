@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import Link from 'next/link';
 import { stickyCardsData } from '@/lib/data';
 
 const StickyCard = () => {
@@ -8,8 +7,8 @@ const StickyCard = () => {
         <section className="sticky-cards-section py-20">
             <div className="max-w-7xl mx-auto px-8 lg:px-16 mb-16 flex justify-between items-end">
                 <h2 className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1] text-[var(--fg)] font-[family-name:var(--font-ppMontreal)] transition-colors duration-300">
-                    The pulse of <br />
-                    <span className="text-[var(--fg)]/90">your transformation.</span>
+                    Keep up with <br />
+                    <span className="text-[var(--fg)]/90">the latest on OptimalYou</span>
                 </h2>
                 <div className="hidden md:flex gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full border border-[var(--fg)]/20 flex items-center justify-center cursor-pointer hover:bg-[var(--fg)]/10 transition-colors">
@@ -39,12 +38,9 @@ const StickyCard = () => {
                                         <p className="grid-card-description">{cardData.description}</p>
                                     </div>
 
-                                    <Link
-                                        href={`/features/${cardData.slug}`}
-                                        className="grid-card-button inline-block text-center"
-                                    >
+                                    <button className="grid-card-button">
                                         Explore Feature
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
                         </div>

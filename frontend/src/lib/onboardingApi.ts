@@ -11,5 +11,5 @@ export async function startOnboarding(data: OnboardingData): Promise<OnboardingR
     });
 }
 
-
+// Re-export types for convenience
 export type { OnboardingData, OnboardingResponse, FinalPlan, DebateSummary };

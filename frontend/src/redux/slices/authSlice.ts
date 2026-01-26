@@ -57,8 +57,8 @@ export const loginAsync = createAsyncThunk(
             // Fetch user data after successful login
             const user = await getCurrentUser();
             return { user, token: authResponse.access_token };
-        } catch (error: any) {
-            return rejectWithValue(error.message || 'Login failed');
+        } catch (error: unknown) {
+            return rejectWithValue((error as Error).message || 'Login failed');
         }
     }
 );
@@ -77,8 +77,8 @@ export const registerAsync = createAsyncThunk(
                 password: userData.password,
             });
             return { user, token: authResponse.access_token };
-        } catch (error: any) {
-            return rejectWithValue(error.message || 'Registration failed');
+        } catch (error: unknown) {
+            return rejectWithValue((error as Error).message || 'Registration failed');
         }
     }
 );
@@ -92,10 +92,10 @@ export const logoutAsync = createAsyncThunk(
         try {
             await logoutUser();
             return;
-        } catch (error: any) {
+        } catch (error: unknown) {
             // Still clear local state even if API call fails
             clearAuthToken();
-            return rejectWithValue(error.message || 'Logout failed');
+            return rejectWithValue((error as Error).message || 'Logout failed');
         }
     }
 );
@@ -111,10 +111,10 @@ export const checkAuthAsync = createAsyncThunk(
             const user = await getCurrentUser();
             const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
             return { user, token };
-        } catch (error: any) {
+        } catch (error: unknown) {
             // Token invalid or expired, clear it
             clearAuthToken();
-            return rejectWithValue(error.message || 'Authentication check failed');
+            return rejectWithValue((error as Error).message || 'Authentication check failed');
         }
     }
 );
