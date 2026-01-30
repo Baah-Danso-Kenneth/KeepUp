@@ -12,7 +12,6 @@ from core.database import Base
 class User(Base):
     __tablename__ = "users"
 
-    # Existing fields...
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     username: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True, nullable=False)
@@ -23,19 +22,19 @@ class User(Base):
     age: Mapped[Optional[int]] = mapped_column(nullable=True)
     gender: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)  # male, female, non-binary, prefer_not_to_say
     
-    # Onboarding status
+
     has_completed_onboarding: Mapped[bool] = mapped_column(default=False, nullable=False)
     
     notifications = relationship("Notification", back_populates="user", cascade="all, delete-orphan")
     tracks_menstrual_cycle: Mapped[bool] = mapped_column(default=False, nullable=False)
     cycle_day: Mapped[Optional[int]] = mapped_column(nullable=True)  # 1-28
     last_period_date: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
-    
-    # Occupation (Phase 2)
+
+
     occupation: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     occupation_details: Mapped[Optional[dict]] = mapped_column(JSON, nullable=True)
     
-    # Primary Health Goal (MVP Core Feature)
+
     primary_goal: Mapped[Optional[str]] = mapped_column(
         String(50), 
         nullable=True,

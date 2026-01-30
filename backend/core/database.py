@@ -76,12 +76,14 @@ async def drop_db() -> None:
 
     ⚠️ DANGER: Only use this in development/testing!
     """
+    from sqlalchemy import text
+    
     async with engine.begin() as conn:
-        # Import all models here to ensure they're registered
-        import models
-        
-
-        await conn.run_sync(Base.metadata.drop_all)
+        # Forcefully drop the entire public schema and recreate it
+        # This handles all dependencies and orphaned tables
+        await conn.execute(text("DROP SCHEMA public CASCADE"))
+        await conn.execute(text("CREATE SCHEMA public"))
+        await conn.execute(text("GRANT ALL ON SCHEMA public TO public"))
         print("✓ Database tables dropped")
 
 
