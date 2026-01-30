@@ -5,7 +5,6 @@ from api.routes import (
     user_route, auth,
     onboarding, resolution, dashboard,
     daily, workout,
-    daily, workout,
     chat,
     checkin,
     nutrition, calendar,
@@ -82,7 +81,6 @@ app.include_router(checkin.router, prefix="/api/checkin", tags=["CheckIn"])
 app.include_router(nutrition.router, prefix="/api", tags=["Nutrition"])
 app.include_router(calendar.router, prefix="/api", tags=["Calendar"])
 app.include_router(biometric.router, prefix="/api", tags=["Biometric"])
-app.include_router(life_events.router, prefix="/api", tags=["Life Events"])
 app.include_router(life_events.router, prefix="/api", tags=["Life Events"])
 app.include_router(safety.router, tags=["Safety & Guardrails"])
 app.include_router(community.router, prefix="/api", tags=["Community"])

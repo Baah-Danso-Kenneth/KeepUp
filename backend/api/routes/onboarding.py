@@ -67,6 +67,19 @@ async def start_onboarding(
         from datetime import datetime, timezone
         current_user.goal_set_at = datetime.now(timezone.utc)
         
+        # NEW: Create the actual Resolution record to unblock Dashboard
+        from services.resolution_service import ResolutionService
+        await ResolutionService.confirm_resolution(
+            user_id=current_user.id,
+            resolution_text=request.goal_details,
+            final_plan=result["final_plan"],
+            db=db,
+            past_attempts=request.past_attempts,
+            life_constraints=request.life_constraints,
+            debate_summary=result.get("debate_summary"),
+            confidence_score=result["confidence_score"]
+        )
+        
         # Save occupation data if provided
         if request.occupation:
             current_user.occupation = request.occupation
