@@ -6,6 +6,8 @@ import {
     Bell,
     User,
     ChevronDown,
+    Settings,
+    LogOut,
     Circle
 } from 'lucide-react';
 
@@ -13,7 +15,9 @@ import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import { useNotifications } from '@/hooks/useNotifications';
 import { markRead } from '@/redux/slices/notificationSlice';
 import { markAsRead as apiMarkAsRead, Notification } from '@/lib/notificationApi';
+import { logout } from '@/redux/slices/authSlice';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 /**
  * TopBar - Header for the main content area.
@@ -25,6 +29,7 @@ export default function TopBar() {
     const { user } = useAppSelector(state => state.auth);
     const { notifications, unreadCount, markAllRead } = useNotifications();
     const [showNotifications, setShowNotifications] = useState(false);
+    const [showProfileMenu, setShowProfileMenu] = useState(false);
 
     const displayName = user?.display_name || 'Protocol User';
 
@@ -42,6 +47,11 @@ export default function TopBar() {
                 console.error('Failed to mark notification as read:', error);
             }
         }
+    };
+
+    const handleLogout = async () => {
+        await dispatch(logout());
+        router.push('/');
     };
 
     return (
@@ -67,7 +77,10 @@ export default function TopBar() {
                 {/* Notifications */}
                 <div className="relative">
                     <button
-                        onClick={() => setShowNotifications(!showNotifications)}
+                        onClick={() => {
+                            setShowNotifications(!showNotifications);
+                            setShowProfileMenu(false);
+                        }}
                         className="relative p-2 text-muted-foreground hover:text-foreground hover:bg-foreground/5 rounded-xl transition-all group"
                     >
                         <Bell size={28} strokeWidth={1.5} />
@@ -126,16 +139,63 @@ export default function TopBar() {
                 </div>
 
                 {/* User Profile */}
-                <div className="flex items-center gap-4 pl-6 border-l border-border">
-                    <div className="text-right hidden md:block">
-                        <p className="text-sm font-black text-foreground tracking-tight uppercase">{displayName}</p>
-                    </div>
-                    <button className="flex items-center gap-2 p-1 rounded-lg hover:bg-foreground/5 transition-all group">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-foreground/10 flex items-center justify-center overflow-hidden">
-                            <User size={20} className="text-foreground" />
+                <div className="relative">
+                    <div className="flex items-center gap-4 pl-6 border-l border-border">
+                        <div className="text-right hidden md:block">
+                            <p className="text-sm font-black text-foreground tracking-tight uppercase">{displayName}</p>
                         </div>
-                        <ChevronDown size={14} className="text-muted-foreground group-hover:text-foreground transition-colors" />
-                    </button>
+                        <button
+                            onClick={() => {
+                                setShowProfileMenu(!showProfileMenu);
+                                setShowNotifications(false);
+                            }}
+                            className="flex items-center gap-2 p-1 rounded-lg hover:bg-foreground/5 transition-all group"
+                        >
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-foreground/10 flex items-center justify-center overflow-hidden">
+                                <User size={20} className="text-foreground" />
+                            </div>
+                            <ChevronDown size={14} className={`text-muted-foreground group-hover:text-foreground transition-transform duration-200 ${showProfileMenu ? 'rotate-180' : ''}`} />
+                        </button>
+                    </div>
+
+                    {/* Profile Dropdown */}
+                    {showProfileMenu && (
+                        <div className="absolute right-0 mt-3 w-56 bg-card border border-border rounded-xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                            <div className="p-4 border-b border-border bg-foreground/2">
+                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">User Session</p>
+                            </div>
+                            <div className="p-2 space-y-1">
+                                <button
+                                    onClick={() => {
+                                        router.push('/profile');
+                                        setShowProfileMenu(false);
+                                    }}
+                                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground hover:bg-foreground/5 rounded-lg transition-all"
+                                >
+                                    <User size={16} />
+                                    Profile Card
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        router.push('/settings');
+                                        setShowProfileMenu(false);
+                                    }}
+                                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground hover:bg-foreground/5 rounded-lg transition-all"
+                                >
+                                    <Settings size={16} />
+                                    Overrides
+                                </button>
+                                <div className="h-px bg-border my-1 mx-2" />
+                                <button
+                                    onClick={handleLogout}
+                                    className="w-full flex items-center gap-3 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-red-500 hover:bg-red-500/5 rounded-lg transition-all"
+                                >
+                                    <LogOut size={16} />
+                                    Terminate Session
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
             </div>

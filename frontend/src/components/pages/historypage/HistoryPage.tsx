@@ -10,7 +10,6 @@ import {
     Shield,
     Activity,
     Bell,
-    ChevronRight,
     Star,
     MoreVertical,
     CheckCircle2
