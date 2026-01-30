@@ -9,12 +9,15 @@ import MessageBubble from './components/MessageBubble';
 import TypingIndicator from './components/TypingIndicator';
 import OnboardingInput from './components/OnboardingInput';
 
+import { sendOnboardingStep } from '@/lib/onboardingApi';
+
 export default function ConversationalOnboarding() {
     const router = useRouter();
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
-    const [step, setStep] = useState(0);
+    const [extractedData, setExtractedData] = useState<Record<string, any>>({});
+    const [isComplete, setIsComplete] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const hasInitialized = useRef(false);
 
@@ -25,20 +28,20 @@ export default function ConversationalOnboarding() {
 
         const initialGreeting = async () => {
             setIsTyping(true);
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            addMessage({
-                text: "Hi there. I'm your personal health architect. I'm here to build a plan that adapts to your life, not the other way around.",
-                sender: 'agent'
-            });
-
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setIsTyping(true);
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            addMessage({
-                text: "To get started, tell me in your own words: what is the one thing you want to change most right now?",
-                sender: 'agent'
-            });
-            setIsTyping(false);
+            // We can even send an initial empty message to get the backend's preferred greeting
+            try {
+                const response = await sendOnboardingStep("START_ONBOARDING", {});
+                addMessage({
+                    text: response.message,
+                    sender: 'agent'
+                });
+            } catch (error) {
+                console.error('Onboarding Init Error:', error);
+                addMessage({
+                    text: "Hi there. I'm your personal health architect. I'm here to build a plan that adapts to your life. To get started, tell me: what is the one thing you want to change most right now?",
+                    sender: 'agent'
+                });
+            }
         };
 
         initialGreeting();
@@ -62,6 +65,15 @@ export default function ConversationalOnboarding() {
     const handleSendMessage = async (text: string) => {
         if (!text.trim()) return;
 
+        // Special handling for the final button
+        if (isComplete && text === "Let's go") {
+            addMessage({ text, sender: 'user' });
+            setIsTyping(true);
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            router.push('/dashboard');
+            return;
+        }
+
         // Add user message
         addMessage({ text, sender: 'user' });
         setInputValue('');
@@ -72,58 +84,48 @@ export default function ConversationalOnboarding() {
     };
 
     const processUserResponse = async (text: string) => {
-        // Simulate AI processing time
-        await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+        try {
+            const response = await sendOnboardingStep(text, extractedData);
 
-        if (step === 0) {
-            // Determine category from open-ended text
-            let category: UserGoal = 'wellness';
-            const lowerText = text.toLowerCase();
+            // Update extracted data from backend
+            if (response.data) {
+                const newData = { ...extractedData, ...response.data };
+                setExtractedData(newData);
 
-            if (lowerText.includes('weight') || lowerText.includes('fit') || lowerText.includes('strength') || lowerText.includes('muscle')) category = 'fitness';
-            else if (lowerText.includes('sleep') || lowerText.includes('tired') || lowerText.includes('rest') || lowerText.includes('insomnia')) category = 'sleep';
-            else if (lowerText.includes('stress') || lowerText.includes('anxiety') || lowerText.includes('calm') || lowerText.includes('relax')) category = 'stress';
-
-            // Store specific goal in localStorage for the dashboard to pick up
-            // In a real app, this would go to the backend/store
-            if (typeof window !== 'undefined') {
-                localStorage.setItem('userSpecificGoal', text);
-                localStorage.setItem('userPrimaryCategory', category || 'wellness');
+                // If backend identified the primary goal, store it
+                if (newData.primary_goal && newData.primary_goal !== 'unknown') {
+                    localStorage.setItem('userPrimaryCategory', newData.primary_goal);
+                    localStorage.setItem('userSpecificGoal', newData.specific_goal || text);
+                }
             }
 
-            setStep(1);
-
-            const responses = {
-                fitness: "Got it. We'll focus on efficient training and nutrition, but I'll also watch your recovery so you don't burn out.",
-                sleep: "Understood. Sleep is the foundation. We'll optimize your evenings and routines to get you the rest you need.",
-                stress: "I hear you. We'll prioritize mental clarity and calm. No intense pressure, just supportive guidance.",
-                wellness: "Sounds good. A balanced approach is often the most sustainable. We'll work on energy and overall vitality."
-            };
-
             addMessage({
-                text: responses[category || 'wellness'],
+                text: response.message,
                 sender: 'agent'
             });
 
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setIsTyping(true);
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // If the chat agent thinks we're done (or close), show the dashboard option
+            // Note: chat_agent response schema has 'data' containing confidence/etc.
+            if (response.data?.conversation_complete) {
+                setIsComplete(true);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                setIsTyping(true);
+                await new Promise(resolve => setTimeout(resolve, 1000));
 
+                addMessage({
+                    text: "I've designed a custom dashboard based on our conversation. Ready to see your protocol?",
+                    sender: 'agent',
+                    type: 'options',
+                    options: ["Let's go", "Tell me more first"]
+                });
+            }
+        } catch (error) {
+            console.error('Onboarding Sync Error:', error);
             addMessage({
-                text: "I've designed a custom dashboard based on this goal. Ready to see it?",
-                sender: 'agent',
-                type: 'options',
-                options: ["Let's go", "Tell me more first"]
-            });
-        } else if (step === 1) {
-            // Final step
-            addMessage({
-                text: "Setting everything up...",
+                text: "My neural link is flickering. Could you repeat that?",
                 sender: 'agent'
             });
-
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            router.push('/dashboard');
+            setIsTyping(false);
         }
     };
 

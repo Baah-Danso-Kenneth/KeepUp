@@ -25,6 +25,53 @@ class ChatAgent(BaseAgent):
             description="Conversational interface for onboarding and daily check-ins",
             model="llama-3.3-70b-versatile"
         )
+        self.history: Dict[str, List[Dict[str, Any]]] = {}
+
+    async def respond(self, user_id: str, message: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
+        """
+        High-level method to handle a user message and return a response.
+        Matches the interface expected by api/routes/chat.py
+        """
+        # Get history
+        user_history = self._get_conversation_history(user_id)
+        
+        # Add user message to history
+        user_history.append({"role": "user", "content": message})
+        
+        # Analyze using current state
+        # In a real RAG system, we might fetch more context here
+        input_data = {
+            "conversation_history": user_history,
+            "user_message": message,
+            "conversation_stage": context.get("stage", "general") if context else "general",
+            "extracted_data": context.get("extracted_data", {}) if context else {}
+        }
+        
+        result = await self.analyze(input_data)
+        
+        # Add agent response to history
+        user_history.append({"role": "assistant", "content": result["agent_response"]})
+        
+        # Truncate history if too long (keep last 20)
+        self.history[user_id] = user_history[-20:]
+        
+        return {
+            "message": result["agent_response"],
+            "data": result.get("extracted_info", {}),
+            "actions": [], # Can be expanded for UI actions
+            "confidence": result.get("confidence", 0.8)
+        }
+
+    def _get_conversation_history(self, user_id: str) -> List[Dict[str, Any]]:
+        """Get history for a specific user"""
+        if user_id not in self.history:
+            self.history[user_id] = []
+        return self.history[user_id]
+
+    def clear_history(self, user_id: str):
+        """Clear history for a specific user"""
+        if user_id in self.history:
+            self.history[user_id] = []
     
     async def analyze(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
         """
