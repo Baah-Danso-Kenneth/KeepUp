@@ -6,7 +6,7 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { registerAsync, clearError } from '@/redux/slices/authSlice';
-import { Eye, EyeOff, Check, ArrowRight, Zap, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, Zap, AlertCircle } from 'lucide-react';
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
@@ -71,7 +71,7 @@ export default function RegisterPage() {
                             Sign up for free
                         </h1>
                         <p className="mt-2 text-sm text-[var(--fg)] opacity-60">
-                            Start your journey to lasting change today.
+                            Start your journey to your optimal self today.
                         </p>
                     </div>
 
@@ -174,9 +174,9 @@ export default function RegisterPage() {
                             />
                         </Link>
                         <div className="flex items-center gap-3 text-2xl font-medium tracking-widest text-[var(--fg)] opacity-60 uppercase">
-                            <span>Master</span>
+                            <span>Stay</span>
                             <Zap className="w-8 h-8 text-[var(--secondary)] fill-[var(--secondary)]" />
-                            <span>Your Momentum</span>
+                            <span>Ahead</span>
                         </div>
                     </div>
                 </div>

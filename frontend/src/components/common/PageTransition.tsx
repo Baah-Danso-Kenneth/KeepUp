@@ -74,7 +74,7 @@ const PageTransition = ({ children }: PageTransitionProps) => {
         return () => {
             document.removeEventListener("click", handleLinkClick);
         };
-    }, [pathname]);
+    }, [pathname, router]);
 
     const coverPage = (url: string) => {
         if (!logoRef.current || !logoOverlayRef.current) {

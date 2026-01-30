@@ -5,12 +5,11 @@ from api.routes import (
     user_route, auth,
     onboarding, resolution, dashboard,
     daily, workout,
-    daily, workout,
     chat,
     checkin,
     nutrition, calendar,
     biometric, life_events,
-    progress, intervention,
+    progress, intervention, notification,
     safety,
     community
 )
@@ -67,7 +66,8 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-app.mount("/ws", socketio_app)  
+app.mount("/socket.io", socketio_app)
+app.mount("/ws/socket.io", socketio_app)
 app.include_router(user_route.router, prefix="/api")
 app.include_router(auth.router, prefix="/api")
 app.include_router(onboarding.router, prefix="/api")
@@ -83,8 +83,8 @@ app.include_router(nutrition.router, prefix="/api", tags=["Nutrition"])
 app.include_router(calendar.router, prefix="/api", tags=["Calendar"])
 app.include_router(biometric.router, prefix="/api", tags=["Biometric"])
 app.include_router(life_events.router, prefix="/api", tags=["Life Events"])
-app.include_router(life_events.router, prefix="/api", tags=["Life Events"])
 app.include_router(safety.router, tags=["Safety & Guardrails"])
+app.include_router(notification.router, prefix="/api")
 app.include_router(community.router, prefix="/api", tags=["Community"])
 
 

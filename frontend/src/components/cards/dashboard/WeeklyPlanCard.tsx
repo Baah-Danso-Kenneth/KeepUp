@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { WeeklyPlan } from '@/types/dashboard.types';
-import { AlertTriangle, Zap, TrendingUp, Calendar } from 'lucide-react';
+import { AlertTriangle, Zap, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface WeeklyPlanCardProps {

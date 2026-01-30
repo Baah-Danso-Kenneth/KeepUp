@@ -1,7 +1,9 @@
+import React from 'react';
+
 /**
  * Parse bold text in markdown format (**text**)
  */
-export function parseBold(text: string): (string | JSX.Element)[] {
+export function parseBold(text: string): (string | React.ReactElement)[] {
     const parts = text.split(/(\*\*.*?\*\*)/g);
     return parts.map((part, index) => {
         if (part.startsWith('**') && part.endsWith('**')) {

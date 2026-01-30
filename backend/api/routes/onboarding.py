@@ -5,6 +5,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from api.dependencies import get_current_user
 from core.database import get_db
 from workflows.onboarding_workflow import OnboardingWorkflow
+from agents.coordination.chat_agent import chat_agent
+from typing import Dict, Any, List
 
 
 router = APIRouter(prefix="/onboarding", tags=["Onboarding"])
@@ -13,6 +15,29 @@ router = APIRouter(prefix="/onboarding", tags=["Onboarding"])
 @router.get("/")
 async def onboarding_status():
     return {"message": "Onboarding route working"}
+
+
+@router.post("/step")
+async def onboarding_conversational_step(
+    request: Dict[str, Any],
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Handle a single conversational step in the onboarding process.
+    """
+    message = request.get("message", "")
+    extracted_data = request.get("extracted_data", {})
+    
+    response = await chat_agent.respond(
+        user_id=str(current_user.id),
+        message=message,
+        context={
+            "stage": "onboarding",
+            "extracted_data": extracted_data
+        }
+    )
+    
+    return response
 
 
 @router.post("/start", response_model=OnboardingResponse) 
@@ -66,6 +91,19 @@ async def start_onboarding(
         }
         from datetime import datetime, timezone
         current_user.goal_set_at = datetime.now(timezone.utc)
+        
+        # NEW: Create the actual Resolution record to unblock Dashboard
+        from services.resolution_service import ResolutionService
+        await ResolutionService.confirm_resolution(
+            user_id=current_user.id,
+            resolution_text=request.goal_details,
+            final_plan=result["final_plan"],
+            db=db,
+            past_attempts=request.past_attempts,
+            life_constraints=request.life_constraints,
+            debate_summary=result.get("debate_summary"),
+            confidence_score=result["confidence_score"]
+        )
         
         # Save occupation data if provided
         if request.occupation:

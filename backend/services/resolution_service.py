@@ -9,6 +9,7 @@ from datetime import datetime
 
 from models.resolution import Resolution, ResolutionStatus
 from workflows.resolution_workflow import ResolutionWorkflow
+from services.hierarchy_generator import ResolutionHierarchyGenerator
 
 
 

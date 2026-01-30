@@ -14,13 +14,13 @@ function HeroSection() {
             <div className="relative z-10 max-w-7xl mx-auto px-8 lg:px-16 w-full pt-64">
                 <div className="max-w-4xl">
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-8 text-[var(--fg)] transition-colors duration-300">
-                        Master your <br />
-                        <span className="text-[var(--fg)]/90">daily evolution.</span>
+                        The ultimate platform <br />
+                        <span className="text-[var(--fg)]/90">for your optimal self.</span>
                     </h1>
 
                     <p className="text-lg md:text-xl text-[var(--fg)]/70 max-w-xl mb-12 leading-relaxed font-medium transition-colors duration-300">
-                        A precision ecosystem for health, fitness, and holistic wellbeing.
-                        Your dedicated partner in sustaining the change that matters.
+                        Unlock your potential with AI-driven insights, personalized wellness plans,
+                        and a community dedicated to growth. Everywhere you grow.
                     </p>
 
                     <PrimaryButton href="/register" className="px-6 py-2 text-base">

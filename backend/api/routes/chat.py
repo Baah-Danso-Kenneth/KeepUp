@@ -14,7 +14,7 @@ from agents.coordination.chat_agent import chat_agent
 from models.user import User
 from schemas.unified_schema import ChatMessageRequest, ChatMessageResponse
 
-router = APIRouter(prefix="/api/chat", tags=["chat"])
+router = APIRouter(prefix="/chat", tags=["chat"])
 
 
 
