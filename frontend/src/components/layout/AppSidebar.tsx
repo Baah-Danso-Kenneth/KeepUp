@@ -18,9 +18,9 @@ const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard' },
     { icon: Calendar, label: 'Schedules', href: '/schedule' },
     { icon: BarChart3, label: 'Analytics', href: '#' },
-    { icon: History, label: 'History', href: '#' },
+    { icon: History, label: 'History', href: '/history' },
     { icon: User, label: 'Profile', href: '/profile' },
-    { icon: Settings, label: 'Settings', href: '#' },
+    { icon: Settings, label: 'Settings', href: '/settings' },
 ];
 
 /**

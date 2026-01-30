@@ -12,26 +12,35 @@ import {
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import { useNotifications } from '@/hooks/useNotifications';
 import { markRead } from '@/redux/slices/notificationSlice';
-import { markAsRead as apiMarkAsRead } from '@/lib/notificationApi';
+import { markAsRead as apiMarkAsRead, Notification } from '@/lib/notificationApi';
+import { useRouter } from 'next/navigation';
 
 /**
  * TopBar - Header for the main content area.
  * Contains search, notifications, and user profile.
  */
 export default function TopBar() {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const { user } = useAppSelector(state => state.auth);
-    const { notifications, unreadCount } = useNotifications();
+    const { notifications, unreadCount, markAllRead } = useNotifications();
     const [showNotifications, setShowNotifications] = useState(false);
 
     const displayName = user?.display_name || 'Protocol User';
 
-    const handleMarkRead = async (id: number) => {
-        try {
-            await apiMarkAsRead(id);
-            dispatch(markRead(id));
-        } catch (error) {
-            console.error('Failed to mark notification as read:', error);
+    const handleNotificationClick = async (notif: Notification) => {
+        // Navigate instead of modal
+        router.push(`/history/${notif.id}`);
+        setShowNotifications(false); // Close dropdown
+
+        // Mark as read if it isn't already
+        if (!notif.read) {
+            try {
+                await apiMarkAsRead(notif.id);
+                dispatch(markRead(notif.id));
+            } catch (error) {
+                console.error('Failed to mark notification as read:', error);
+            }
         }
     };
 
@@ -59,11 +68,11 @@ export default function TopBar() {
                 <div className="relative">
                     <button
                         onClick={() => setShowNotifications(!showNotifications)}
-                        className="relative p-2.5 text-muted-foreground hover:text-foreground hover:bg-foreground/5 rounded-xl transition-all group"
+                        className="relative p-2 text-muted-foreground hover:text-foreground hover:bg-foreground/5 rounded-xl transition-all group"
                     >
-                        <Bell size={24} strokeWidth={1.5} />
+                        <Bell size={28} strokeWidth={1.5} />
                         {unreadCount > 0 && (
-                            <span className="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 bg-primary text-[10px] font-black text-background flex items-center justify-center rounded-full border-2 border-background shadow-lg shadow-primary/20">
+                            <span className="absolute top-1 right-1 min-w-[20px] h-[20px] px-1 bg-primary text-[10px] font-black text-background flex items-center justify-center rounded-full border-2 border-background shadow-lg shadow-primary/20">
                                 {unreadCount > 99 ? '99+' : unreadCount}
                             </span>
                         )}
@@ -81,11 +90,11 @@ export default function TopBar() {
                                     notifications.map((n) => (
                                         <div
                                             key={n.id}
-                                            onClick={() => handleMarkRead(n.id)}
+                                            onClick={() => handleNotificationClick(n)}
                                             className={`p-4 border-b border-border/50 transition-colors cursor-pointer hover:bg-foreground/5 ${!n.read ? 'bg-primary/5' : ''}`}
                                         >
                                             <div className="flex gap-3">
-                                                <div className={`mt-1 h-2 w-2 rounded-full shrink-0 ${!n.read ? 'bg-primary' : 'bg-muted-foreground/30'}`} />
+                                                <div className={`mt-1 h-2 w-2 rounded-full shrink-0 ${!n.read ? 'bg-primary shadow-[0_0_8px_rgba(20,241,149,0.5)]' : 'bg-muted-foreground/30'}`} />
                                                 <div className="space-y-1">
                                                     <p className="text-xs font-bold text-foreground leading-tight">{n.title}</p>
                                                     <p className="text-[11px] text-muted-foreground line-clamp-2">{n.message}</p>
@@ -102,7 +111,15 @@ export default function TopBar() {
                                 )}
                             </div>
                             <div className="p-3 bg-foreground/2 text-center border-t border-border">
-                                <button className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">View All Protocol Logs</button>
+                                <button
+                                    onClick={() => {
+                                        router.push('/history');
+                                        setShowNotifications(false);
+                                    }}
+                                    className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+                                >
+                                    View All Protocol Logs
+                                </button>
                             </div>
                         </div>
                     )}

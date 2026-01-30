@@ -4,7 +4,8 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
     addNotification,
     setUnreadCount,
-    fetchInitialNotifications
+    fetchInitialNotifications,
+    markAllRead
 } from '@/redux/slices/notificationSlice';
 
 let socket: Socket | null = null;
@@ -12,7 +13,11 @@ let socket: Socket | null = null;
 export const useNotifications = () => {
     const dispatch = useAppDispatch();
     const { user, token } = useAppSelector(state => state.auth);
-    const { notifications, unreadCount } = useAppSelector(state => state.notifications);
+    const { notifications, unreadCount, loading } = useAppSelector(state => state.notifications);
+
+    const markAllReadCallback = useCallback(() => {
+        dispatch(markAllRead());
+    }, [dispatch]);
 
     useEffect(() => {
         if (!user || !token) return;
@@ -60,6 +65,8 @@ export const useNotifications = () => {
 
     return {
         notifications,
-        unreadCount
+        unreadCount,
+        loading,
+        markAllRead: markAllReadCallback
     };
 };
