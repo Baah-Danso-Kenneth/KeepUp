@@ -271,6 +271,7 @@ const ReactNav: React.FC<ReactNavProps> = ({ containerRef }) => {
         mediaWrapperRef={menuMediaWrapperRef}
         setColRef={setColRef}
         isOpen={isMenuOpen}
+        onClose={toggleMenu}
       />
     </nav >
   );

@@ -31,9 +31,7 @@ export const stickyCardsData = [
 
 export const navLinks = [
     { label: "Dashboard", href: "/dashboard" },
-    { label: "Performance", href: "/performance" },
-    { label: "Growth", href: "/growth" },
-    { label: "Intelligence", href: "/intelligence" },
+    { label: "Schedules", href: "/schedule" },
     { label: "Community", href: "/community" },
 ];
 

@@ -19,9 +19,8 @@ import Link from 'next/link';
 import AppSidebar from '@/components/layout/AppSidebar';
 import TopBar from '@/components/layout/TopBar';
 import { useNotifications } from '@/hooks/useNotifications';
-import { Notification, markAsRead } from '@/lib/notificationApi';
 import { useAppDispatch } from '@/redux/hooks';
-import { markRead } from '@/redux/slices/notificationSlice';
+
 import { format } from 'date-fns';
 
 /**
