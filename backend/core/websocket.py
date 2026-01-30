@@ -205,5 +205,6 @@ async def broadcast_system_message(message: str, priority: str = 'normal'):
 # Export for use in FastAPI
 socketio_app = socketio.ASGIApp(
     sio,
+    socketio_path='',
     other_asgi_app=None  # We'll mount this on FastAPI
 )
